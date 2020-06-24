@@ -34,17 +34,19 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
 TARGET_BOARD_SUFFIX := _64
 
 ## Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := MSM8953
+TARGET_BOOTLOADER_BOARD_NAME := Markw
 TARGET_NO_BOOTLOADER := true
 
 ## Crypto
+TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
 TARGET_HW_DISK_ENCRYPTION := true
 
 ## Kernel
-BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 androidboot.selinux=permissive
-BOARD_KERNEL_PAGESIZE := 4096
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+BOARD_KERNEL_BASE := 0x80000000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_TAGS_OFFSET := 0x00000100
+BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 #TARGET_KERNEL_CONFIG := markw_defconfig
 #TARGET_KERNEL_SOURCE := kernel/xiaomi/markw
@@ -69,29 +71,24 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 
-#System as root
+# System as root
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 
-## TWRP Configuration
+# TWRP Configuration
 TW_THEME := portrait_hdpi
 TW_INCLUDE_CRYPTO := true
 TW_MAX_BRIGHTNESS := 255
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TW_EXCLUDE_SUPERSU := true
+TW_SCREEN_BLANK_ON_BOOT := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_SUPPRESS_SECURE_ERASE := true
-RECOVERY_SDCARD_ON_DATA := true
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
-TW_NO_SCREEN_BLANK := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/soc/7000000.ssusb/7000000.dwc3/gadget/lun%d/file"
-TW_INCLUDE_NTFS_3G := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_IGNORE_MISC_WIPE_DATA := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_USE_TOOLBOX := true
-TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
+TW_NO_EXFAT_FUSE := true
 
-TW_SKIP_COMPATIBILITY_CHECK := true
+# Supress error messages while building
+ALLOW_MISSING_DEPENDENCIES := true
 
 #enable Logcat in twrp
 TWRP_INCLUDE_LOGCAT := true
@@ -101,26 +98,4 @@ TARGET_USES_LOGD := true
 BOARD_NEEDS_VENDORIMAGE_SYMLINK := false
 TARGET_COPY_OUT_VENDOR := vendor
 
-# exclude Twrp app
-TW_EXCLUDE_TWRPAPP := true
-
-#For reverse navbar (default "0")
-TW_SPECIFIC_SAMSUNG_NAVBAR := "1"
-
-#adbd insecure
-BOARD_ALWAYS_INSECURE := true
-
-## Experimentation
-#TW_HAS_DOWNLOAD_MODE = true
-#TW_HAS_EDL_MODE = true
-
-TW_DEVICE_VERSION := 1-markw
-
-# supress error messages while building
-ALLOW_MISSING_DEPENDENCIES := true
-
-#Build resetprop from source
-TW_INCLUDE_RESETPROP := true
-
-#Copy some props from installed system
-TW_OVERRIDE_SYSTEM_PROPS := "ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.sdk;ro.build.version.security_patch;ro.build.version.release"
+TW_DEVICE_VERSION := Tostisto
